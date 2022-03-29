@@ -42,6 +42,31 @@ this will allow for direct comparison. Next an indicator is created to
 distinguish excess mortality numbers from reported covid 19 fatalities.
 Finaly the two data frame are combined
 
+``` r
+## Back calculating deaths per day and adding epi week for correlation anlysis with excess deaths
+deaths <- cumtive_deaths %>% 
+  mutate(across(.cols = EC:total, ~ifelse(YYYYMMDD == 20200327, .,  (.) - dplyr::lag(.))),
+         date = dmy(date),
+         year = year(date),
+         epi_week = epiweek(date),
+         indicator = "Covid 19 Deaths") %>% 
+  select(date, year, epi_week, EC:WC, RSA = total, indicator)
+  
+
+## Changing compatibility between two death data frames
+excess_deaths_clean <- excess_deaths %>%
+  rename(date = X) %>% 
+  mutate(date = dmy(date),
+         epi_week = epiweek(date),
+         year = year(date),
+         indicator = "Excess Deaths") %>% 
+  select(date, year, epi_week, EC, FS, GP = GT, KZN, LP = LM, MP:WC, RSA, indicator)
+
+combined_df <- rbind(deaths, excess_deaths_clean) 
+
+head(combined_df)
+```
+
     ##         date year epi_week EC FS GP KZN LP MP NC NW WC RSA       indicator
     ## 1 2020-03-27 2020       13  0  0  0   0  0  0  0  0  1   1 Covid 19 Deaths
     ## 2 2020-03-28 2020       13  0  0  0   1  0  0  0  0  0   1 Covid 19 Deaths
@@ -57,7 +82,7 @@ are plotted over time per province and for South Africa.
 
 ``` r
 ## Plot the excess mortality and actual deaths per week over time to compare trends
-combined_df %>% 
+p <- combined_df %>% 
   group_by(epi_week, year, indicator) %>% 
   summarise(date = min(date),
             across(.cols = EC:RSA, ~sum(., na.rm = T))) %>% 
@@ -65,6 +90,8 @@ combined_df %>%
   ggplot(aes(x = date, y = Deaths, colour = indicator))+
   geom_line()+
   facet_wrap(.~Province, scales = "free_y")+ theme(axis.text.x = element_text(angle = 90))
+
+print(p)
 ```
 
 ![](ExcessDeathsEDA_files/figure-gfm/time%20plot-1.png)<!-- -->
@@ -73,7 +100,7 @@ And then the two are plotted against each other.
 
 ``` r
 ## Plot correlation between the two
-combined_df %>% 
+p <- combined_df %>% 
   group_by(epi_week, year, indicator) %>% 
   summarise(date = min(date),
             across(.cols = EC:RSA, ~sum(., na.rm = T))) %>% 
@@ -83,6 +110,8 @@ combined_df %>%
   geom_point(shape = 1)+
   facet_wrap(.~Province, scales = "free")+
   geom_smooth(method = "lm", se = F, colour = "black")
+
+print(p)
 ```
 
 ![](ExcessDeathsEDA_files/figure-gfm/versus-1.png)<!-- -->
