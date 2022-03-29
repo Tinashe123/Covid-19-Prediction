@@ -94,7 +94,7 @@ p <- combined_df %>%
 print(p)
 ```
 
-![](ExcessDeathsEDA_files/figure-gfm/time%20plot-1.png)<!-- -->
+![](ExcessDeathsEDA_files/figure-gfm/time_plot-1.png)<!-- -->
 
 And then the two are plotted against each other.
 
