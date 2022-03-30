@@ -1,7 +1,8 @@
 mit-808-starter
 ==============================
 
-A short description of the project.
+The scope of the project is to identify  publicly available covid-19 models in literature and identify gaps for improvement. Models that do not fit the SA scope will be modified and evaluated based on SA data. The best performing models will be chosen for a super ensemble model.  Performance evaluation prior to vaccinations and after will be conducted to determine vaccination impact and also see if the models can capture reported excess mortality deaths. 
+
 
 Project Organization
 ------------
