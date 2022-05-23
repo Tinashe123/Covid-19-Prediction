@@ -1,7 +1,32 @@
-mit-808-starter
+Covid-19 Prediction
 ==============================
+## Description
+The scope of the project is to identify  publicly available covid-19 models in literature and identify gaps for improvement. Models that do not fit the SA scope will be modified and evaluated based on SA data. Performance evaluation prior to vaccinations and after will be conducted to determine vaccination impact and also see if the models can capture reported excess mortality deaths. The developed models will be evaluated if they are capable of predicting excess mortality rates. We should be able to evaluate the effect of vaccine rollout on the number of confirmed cases and deaths recorded.
 
-The scope of the project is to identify  publicly available covid-19 models in literature and identify gaps for improvement. Models that do not fit the SA scope will be modified and evaluated based on SA data. The best performing models will be chosen for a super ensemble model.  Performance evaluation prior to vaccinations and after will be conducted to determine vaccination impact and also see if the models can capture reported excess mortality deaths. 
+# About the Dataset
+There are 6 datasets used in this study:
+1. covid19za_provincial_cumulative_timeline_confirmed
+2. covid19za_provincial_cumulative_timeline_deaths
+3. covid19za_provincial_cumulative_timeline_recoveries
+4. covid19za_provincial_cumulative_timeline_vaccination
+5. covid19za_timeline_testing
+6. nicd_hospital_surveillance_data
+
+To predict new cases, we only focus on 'cases_new' column. There are few missing data and symbol found and data cleaning process were applied. The datasets are based on cumulative data and we have preprocessed the data to reflect daily data as an additional column.
+
+# SIR Model
+SIR models provide a theoretical framework for the time rates of change of three populations in an outbreak of a contageous disease.
+The populations in the model are given the shorthand 
+- $S$ for the number of people in the population that are suscptable to getting infected
+- $I$ for the number of people that are infected
+- $R$ for the people that are recovered from the disease (an are therefore imune, possibly only temporarily).
+
+The three populations exchange members as time goes on as shown in the diagram below. For example, suscepable people become infected. The following directed graph shows the exchanges in the model with $a,~b,~c,$ and $\alpha$ as arbitary numbers. 
+
+- $a$ is called **transmissability**
+- $b$ is called **recovery rate**
+- $c$ is called **deimunization rate**
+- $\alpha$ is called **vaccination rate**
 
 
 Project Organization
