@@ -29,6 +29,22 @@ The three populations exchange members as time goes on as shown in the diagram b
 - $\alpha$ is called **vaccination rate**
 
 
+# Approach
+Followed a 6-step approach
+
+Data Identification & Collection: Researched based on the requirements which data was sufficient for the problem. 
+
+Data Quality Assessment & Preparation: Filtered out columns containing irrelevant variables such as ICU Y/N due to it mostly being missing. 
+
+EDA (Exploratory Data Analysis): Plotted graphs to show distribution of cases, deaths and vaccinations across South African Provinces
+
+Feature Engineering
+
+Model Development: Used SIR Model since we are working on pandemic data and want to model how the population changes over time. 
+
+Model Validation: Assessed model performance on test dataset using various method
+
+
 Project Organization
 ------------
 
